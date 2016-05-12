@@ -90,5 +90,6 @@ body {
 
 .grey {
 	background-color:#999999;
+	z-index: 1;
 }
 
