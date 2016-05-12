@@ -1,0 +1,19 @@
+{
+  "name": "Sticky-Header",
+  "authors": [
+    "Pushchinskiy M."
+  ],
+  "description": "sticky header for mobile devices",
+  "license": "MIT",
+  "homepage": "https://github.com/Muschina/Sticky-Header",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iscroll": "^5.2.0"
+  }
+}
