@@ -4,7 +4,7 @@ var page = document.querySelector('#page');
 var header = document.querySelector('#header');
 var scrollerElement = document.querySelector('#wrapper');
 var scroller = {};
-var topHeader = 30;
+var topHeader = 0; // parameter , which sets the indention for header;
 
 
 var bars = document.querySelectorAll('[data-bar]');
