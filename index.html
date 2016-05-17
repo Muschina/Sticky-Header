@@ -1,43 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-
-<title>Header Sticky</title>
-
-<script type="text/javascript" src="./src/scripts/iscroll.js"></script>
-<script type="text/javascript" src="./src/scripts/iscroll-probe.js"></script>
-<link type="text/css" rel="stylesheet" href="./src/styles/main.css">
-
-<script type="text/javascript" src="./src/scripts/header.js"></script>
-<script type="text/javascript" src="./src/scripts/scroller.js"></script>
-<script type="text/javascript" src="./src/scripts/page.js"></script>
-<script type="text/javascript" src="./src/scripts/app.js" defer></script>
-
+  <title></title>
+  <style type="text/css">
+    body {
+    	overflow: scroll;
+      	height: 2000px;
+      	margin:0px;
+    }
+    .bar-black {
+      	width: 100%;
+      	height: 50px;
+      	margin: auto;
+      	background-color:#333333;
+    }
+    .placeholder {
+      	height: 200px;
+      	width: 100%;
+    }
+    .bar-grey {
+    	width: 100%;
+      	height: 50px;
+      	margin: auto;
+    	background-color:#999999;
+    }
+    #sticky-header {
+      	position: fixed;	
+    }
+  </style>
 </head>
 <body>
-	<div id="page">
-		
-		<div id="header"></div>
-		<div id="wrapper">
-			<div id="scroller">
-				<a href="https://github.com/ltebean/sticky-header">
-		    	<img class="github" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"/>
-		  	</a>
-				<div class="placeholder"></div>
-		    <div id="bar1" class="bar" data-bar="bar"></div>
-		    <div class="placeholder">
-		    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam saepe laudantium enim, nisi veritatis cumque aperiam est tenetur, sit eos a molestiae ullam soluta quod aliquam, cum placeat consectetur. Facere.</p>
-		    	
+  <header id="sticky-header"></header>
+  <div class="container">
+    <div class="placeholder"></div>
+    <div class="bar-black" data-bar="firstBar"></div>
+    <div class="placeholder"></div>
+    <div class="bar-grey" data-bar="secondBar"></div>
+  </div>
 
-		    </div>
-		    <div id="bar2" class="bar grey" data-bar="bar"></div>
-			</div>   
-	  </div>
-	  <div id="monitor">Y position: <strong id="position">0</strong></div>
-	</div>
-	
+  <a href="https://github.com/ltebean/sticky-header">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"/>
+  </a>
+  <script type="text/javascript">
+  	! function(name, definition) {
+  if (typeof module != 'undefined' && module.exports) module.exports = definition();
+  else if (typeof define == 'function') define(definition);
+  else this[name] = definition();
+}('sticky', function() {
 
+  return sticky;
+});
+
+  function sticky(options) {
+    
+    var el = calculateBarsOptions(options.el);
+    var header = options.header || document.querySelector('#sticky-header');
+    var headerTop = options.top || 0;
+
+    var onscroll;
+    if (window.onscroll) {
+      onscroll = window.onscroll;
+    }
+    
+    window.onscroll = function(event) {
+    	var a = getWindowScroll().top;
+    	console.log(a);
+      if (getWindowScroll().top < el[0].top - headerTop) {
+      	if(header.classList.contains(el[0].consistsClass)) {
+			header.classList.remove(el[0].consistsClass);
+		}
+      } else {
+	      	el.forEach(function(item) {
+	      		if(getWindowScroll().top > item.top - headerTop) {
+					header.classList.add(item.consistsClass);
+				}
+				else {
+					if(header.classList.contains(item.consistsClass)) {
+						header.classList.remove(item.consistsClass);
+					}
+				}
+	      	});
+	    }
+      onscroll && onscroll(event);
+  	}
+	function calculateBarsOptions (arr) {
+		var elems = Array.prototype.slice.call(arr)// we do array of collection 
+
+		var barsArray = elems.map(function(item) {
+			var rect = item.getBoundingClientRect();
+			var windowScroll = getWindowScroll();
+
+			return {
+				elem: item,
+				consistsClass: item.className,
+				left: rect.left + windowScroll.left,
+	      		top: rect.top + windowScroll.top,
+	      		width: rect.width,
+	      		height: rect.height
+			};
+		});
+
+		return barsArray.sort(sortBarsTopPosition);
+	}
+
+    function getWindowScroll() {
+      return {
+        top: window.pageYOffset || document.documentElement.scrollTop,
+        left: window.pageXOffset || document.documentElement.scrollLeft
+      }
+    }
+
+    function sortBarsTopPosition (firstObj, secondObj) {
+  	  return firstObj.top - secondObj.top;
+    }
+
+    function calcRect(el) {
+      var rect = el.getBoundingClientRect();
+      var windowScroll = getWindowScroll()
+      return {
+        left: rect.left + windowScroll.left,
+        top: rect.top + windowScroll.top,
+        width: rect.width,
+        height: rect.height
+      }
+    }
+
+  }
+  </script>
+  <script type="text/javascript">
+  var bars=document.querySelectorAll('[data-bar]');
+  var header = document.querySelector('#sticky-header');
+  
+  sticky({el: bars, header: header});
+  
+  </script>
 </body>
 </html>
