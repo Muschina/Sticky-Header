@@ -59,11 +59,6 @@
     var el = calculateBarsOptions(options.el);
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
-
-    var onscroll;
-    if (window.onscroll) {
-      onscroll = window.onscroll;
-    }
     
     window.onscroll = function(event) {
     	var a = getWindowScroll().top;
@@ -84,7 +79,6 @@
 				}
 	      	});
 	    }
-      onscroll && onscroll(event);
   	}
 	function calculateBarsOptions (arr) {
 		var elems = Array.prototype.slice.call(arr)// we do array of collection 
