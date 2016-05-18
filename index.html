@@ -97,8 +97,6 @@
         setTimeout(function() {
           wrapper.scrollTop = 0;
           window.scrollBy(0, 0);
-          alert(wrapper.scrollTop);
-          alert(window.pageYOffset);
         },1000/60); 
       }
 
@@ -143,8 +141,8 @@
 
     function getWrapperScroll() {
       return {
-        top: window.pageYOffset || wrapper.scrollTop,
-        left: window.pageXOffset || wrapper.scrollLeft
+        top:  wrapper.scrollTop || window.pageYOffset,
+        left: wrapper.scrollLeft || window.pageXOffset 
       };
     }
 
