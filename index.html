@@ -95,8 +95,9 @@
       console.log(getWrapperScroll().top)
       if(getWrapperScroll().top < 0) {
         wrapper.ontouchend = function() {
-          wrapper.scrollTop = 0;
-          window.scrollBy(0, 0);
+          var top = Math.abs(getWrapperScroll().top);
+          wrapper.scrollTop = top;
+          window.scrollBy(0, top);
         }
       }
 
