@@ -92,8 +92,9 @@
 
 
     wrapper.onscroll = function(event) {
+      console.log(getWrapperScroll().top)
       if(getWrapperScroll().top < 0) {
-        window.pageYOffset || wrapper.scrollTop = 0;
+        wrapper.scrollTop = 0;
       }
 
       if (getWrapperScroll().top < el[0].top - headerTop) {
