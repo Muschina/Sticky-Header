@@ -94,7 +94,9 @@
     wrapper.onscroll = function(event) {
       console.log(getWrapperScroll().top)
       if(getWrapperScroll().top < 0) {
-        wrapper.scrollTop = 0;
+        setTimeout(function() {
+          wrapper.scrollTop = 0;
+        },1000/60); 
       }
 
       if (getWrapperScroll().top < el[0].top - headerTop) {
