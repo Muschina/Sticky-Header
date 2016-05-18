@@ -94,10 +94,11 @@
     wrapper.onscroll = function(event) {
       console.log(getWrapperScroll().top)
       if(getWrapperScroll().top < 0) {
-        alert('hello');
         setTimeout(function() {
           wrapper.scrollTop = 0;
           window.scrollBy(0, 0);
+          alert(wrapper.scrolltop);
+          alert(window.pageYOffset);
         },1000/60); 
       }
 
