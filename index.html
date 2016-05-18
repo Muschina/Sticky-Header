@@ -92,6 +92,7 @@
 
 
     wrapper.onscroll = function(event) {
+      event.preventDefault();
     	var a = getWrapperScroll().top;
     	console.log(a);
       if (getWrapperScroll().top < el[0].top - headerTop) {
