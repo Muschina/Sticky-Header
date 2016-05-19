@@ -97,6 +97,7 @@
 
       function chechWrapperScrollEnd() {
         var wrapperScrollTop = getWrapperScroll().top;
+        console.log(header.getBoundingClientRect().top, header.scrollTop);
 
         if(timer) {
           clearTimeout(timer);
