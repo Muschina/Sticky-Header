@@ -106,8 +106,8 @@
 
       if (getWrapperScroll().top < el[0].top - headerTop) {
       	if(header.classList.contains(el[0].consistsClass)) {
-			header.classList.remove(el[0].consistsClass);
-		}
+    			header.classList.remove(el[0].consistsClass);
+    		}
       } else {
 	      	el.forEach(function(item) {
 	      		if(getWrapperScroll().top > item.top - headerTop) {
@@ -115,33 +115,35 @@
     					header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
     				}
-				else {
-					if(header.classList.contains(item.consistsClass)) {
-						header.classList.remove(item.consistsClass);
-					}
-				}
+    				else {
+    					if(header.classList.contains(item.consistsClass)) {
+    						header.classList.remove(item.consistsClass);
+    					}
+    				}
 	      	});
-	    }
+	      }
+  	  }
+    }
+
+  	function calculateBarsOptions (arr) {
+  		var elems = Array.prototype.slice.call(arr)// we do array of collection 
+
+  		var barsArray = elems.map(function(item) {
+  			var rect = item.getBoundingClientRect();
+  			var wrapperScroll = getWrapperScroll();
+
+  			return {
+  				elem: item,
+  				consistsClass: item.className,
+  				left: rect.left + wrapperScroll.left,
+  	      		top: rect.top + wrapperScroll.top,
+  	      		width: rect.width,
+  	      		height: rect.height
+  			};
+  		});
+
+  		return barsArray.sort(sortBarsTopPosition);
   	}
-	function calculateBarsOptions (arr) {
-		var elems = Array.prototype.slice.call(arr)// we do array of collection 
-
-		var barsArray = elems.map(function(item) {
-			var rect = item.getBoundingClientRect();
-			var wrapperScroll = getWrapperScroll();
-
-			return {
-				elem: item,
-				consistsClass: item.className,
-				left: rect.left + wrapperScroll.left,
-	      		top: rect.top + wrapperScroll.top,
-	      		width: rect.width,
-	      		height: rect.height
-			};
-		});
-
-		return barsArray.sort(sortBarsTopPosition);
-	}
 
     function getWrapperScroll() {
       return {
@@ -183,7 +185,7 @@
 
     function draw(progress, scrollEnd) {
     wrapper.scrollTop += progress*scrollEnd + 'px';
-  }
+    }
   }
   </script>
   <script type="text/javascript">
