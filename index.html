@@ -9,12 +9,12 @@ Gist
   Star 0
   Fork 0 Muschina/Sticky-Header
  Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Tree: fd5623ced2 Find file Copy path
+Tree: cdd6460cc3 Find file Copy path
 Sticky-Header/index.html
-fd5623c  a day ago
-@Muschina Muschina changed scroll border.
+cdd6460  a day ago
+@Muschina Muschina scroll indention is cross-browser
 1 contributor
-RawBlameHistory     Executable File  164 lines (146 sloc)  4.29 KB
+RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,12 +26,6 @@ RawBlameHistory     Executable File  164 lines (146 sloc)  4.29 KB
     * {
       margin: 0;
       padding: 0;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-    }
-    html {
-      -ms-touch-action: none;
     }
     body {
       overflow: hidden;
@@ -103,10 +97,8 @@ RawBlameHistory     Executable File  164 lines (146 sloc)  4.29 KB
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
     wrapper.onscroll = function(event) {
-      console.log(getWrapperScroll().top)
-      if(getWrapperScroll().top < 0) {
-        wrapper.scrollTop = 0;
-      }
+      var a = getWrapperScroll().top;
+      console.log(a);
       if (getWrapperScroll().top < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
       header.classList.remove(el[0].consistsClass);
