@@ -92,25 +92,20 @@
 
 
     wrapper.onscroll = function(event) {
-      console.log(getWrapperScroll().top)
-      if(getWrapperScroll().top < 0) {
-        wrapper.ontouchend = function(event) {
-          event.preventDefault();
-          var top = Math.abs(getWrapperScroll().top)*2;
-          animate({
-            duration: 1000,
-            timing: sqrt,
-            draw: draw
-          });
-        }
+      var wrapperScrollTop = getWrapperScroll().top;
+      if(wrapperScrollTop < 0) {
+        var timer;
+        timer ? clearTimer(timer) : timer = setTimeout(function (){
+          wrapper.scrollTop = wrapperScrollTop;
+        },0)
 
-      if (getWrapperScroll().top < el[0].top - headerTop) {
+      if (wrapperScrollTop < el[0].top - headerTop) {
       	if(header.classList.contains(el[0].consistsClass)) {
     			header.classList.remove(el[0].consistsClass);
     		}
       } else {
 	      	el.forEach(function(item) {
-	      		if(getWrapperScroll().top > item.top - headerTop) {
+	      		if(wrapperScrollTop > item.top - headerTop) {
               var headerWidth = getBarWidth();
     					header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
@@ -158,33 +153,6 @@
 
     function getBarWidth() {
       return el[0].elem.clientWidth + 'px';
-    }
-
-    function animate(options) {
-
-      var start = performance.now();
-
-      requestAnimationFrame(function animate(time) {
-        var timeFraction = (time - start) / options.duration;
-        if (timeFraction > 1) timeFraction = 1;
-
-        var progress = options.timing(timeFraction)
-
-        options.draw(progress);
-
-        if (timeFraction < 1) {
-          requestAnimationFrame(animate);
-        }
-
-      });
-    }
-
-    function sqrt(progress) {
-      return Math.pow(progress, 0.2);
-    }
-
-    function draw(progress, scrollEnd) {
-    wrapper.scrollTop += progress*scrollEnd + 'px';
     }
   }
   </script>
