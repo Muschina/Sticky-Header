@@ -87,8 +87,7 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
-    var body = document.getElementsByTageName('body')[0];
-    console.log(wrapper.scrollTop, body.scrollTop);
+    console.log(wrapper.scrollTop, header.scrollTop);
 
     // wrapper.ontouchend = function(event) {
 
@@ -127,7 +126,7 @@
       } else {
           el.forEach(function(item) {
             if(wrapperScrollTop > item.top - headerTop) {
-              console.log(wrapper.scrollTop, body.scrollTop);
+              console.log(wrapper.scrollTop, header.scrollTop);
               var headerWidth = getBarWidth();
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
