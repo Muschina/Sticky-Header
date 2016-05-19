@@ -97,7 +97,8 @@
         var timer;
         timer ? clearTimer(timer) : timer = setTimeout(function (){
           wrapper.scrollTop = wrapperScrollTop;
-        },0)
+        },0);
+      }
 
       if (wrapperScrollTop < el[0].top - headerTop) {
       	if(header.classList.contains(el[0].consistsClass)) {
@@ -116,8 +117,7 @@
     					}
     				}
 	      	});
-	      }
-  	  }
+	    }
     }
 
   	function calculateBarsOptions (arr) {
