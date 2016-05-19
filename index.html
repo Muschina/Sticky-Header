@@ -87,7 +87,7 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
-    console.log(window.screen.height, window.screen.availHeight);
+    console.log(wrapper.scrollTop, body.scrollTop);
 
     // wrapper.ontouchend = function(event) {
 
@@ -126,7 +126,7 @@
       } else {
           el.forEach(function(item) {
             if(wrapperScrollTop > item.top - headerTop) {
-              console.log(window.screen.height, window.screen.availHeight);
+              console.log(wrapper.scrollTop, body.scrollTop);
               var headerWidth = getBarWidth();
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
