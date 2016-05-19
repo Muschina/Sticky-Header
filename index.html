@@ -79,7 +79,7 @@
 
   function sticky(options) {
     
-    var wrapper= options.wrapper;
+    var wrapper = options.wrapper;
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
@@ -104,7 +104,11 @@
               header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-              header.style.top =  - header.getBoundingClientRect().top + 'px';
+              if (header.getBoundingClientRect().top && !body.style.top) {
+                header.style.top =  - header.getBoundingClientRect().top + 'px';
+                body.style.left = 0;
+              }
+              
               // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
             } else {
               if(header.classList.contains(item.consistsClass)) {
@@ -152,7 +156,6 @@
   }
   </script>
   <script type="text/javascript">
-  
     var bars=document.querySelectorAll('[data-bar]');
     var header = document.querySelector('#sticky-header');
     var wrapper = document.querySelector('#wrapper');
