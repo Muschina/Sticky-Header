@@ -90,29 +90,29 @@
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
 
-    wrapper.ontouchend = function(event) {
+    // wrapper.ontouchend = function(event) {
 
-      var timer, touchEnd = getWrapperScroll().top;
-      chechWrapperScrollEnd();
+    //   var timer, touchEnd = getWrapperScroll().top;
+    //   chechWrapperScrollEnd();
 
-      function chechWrapperScrollEnd() {
-        var wrapperScrollTop = getWrapperScroll().top;
-        console.log(header.getBoundingClientRect().top, header.scrollTop);
+    //   function chechWrapperScrollEnd() {
+    //     var wrapperScrollTop = getWrapperScroll().top;
+    //     console.log(header.getBoundingClientRect().top, header.scrollTop);
 
-        if(timer) {
-          clearTimeout(timer);
-        } 
-        timer = setTimeout(function (){
-          if(touchEnd === wrapperScrollTop) {
-            checkAndChangeHeader(touchEnd);
-          } else {
-            touchEnd = wrapperScrollTop;
-            chechWrapperScrollEnd();
-          }              
-        },1000/60);
-      }
+    //     if(timer) {
+    //       clearTimeout(timer);
+    //     } 
+    //     timer = setTimeout(function (){
+    //       if(touchEnd === wrapperScrollTop) {
+    //         checkAndChangeHeader(touchEnd);
+    //       } else {
+    //         touchEnd = wrapperScrollTop;
+    //         chechWrapperScrollEnd();
+    //       }              
+    //     },1000/60);
+    //   }
       
-    }
+    // }
 
     wrapper.onscroll = function(event) {
       var wrapperScrollTop = getWrapperScroll().top;
@@ -130,6 +130,8 @@
               var headerWidth = getBarWidth();
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
+              header.style.top = 0;
+              header.style.left = 0;
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
