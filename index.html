@@ -103,7 +103,6 @@
         } 
         timer = setTimeout(function (){
           if(touchEnd === wrapperScrollTop) {
-            wrapper.scrollTop = touchEnd;
             checkAndChangeHeader(touchEnd);
           } else {
             touchEnd = wrapperScrollTop;
