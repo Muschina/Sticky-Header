@@ -89,6 +89,7 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
+    var body = document.getElementsByTagName('body')[0];
     console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
 
     // wrapper.ontouchend = function(event) {
@@ -182,13 +183,13 @@
   }
   </script>
   <script type="text/javascript">
-  document.addEventListener('DOMcontentLoaded', function() {
+  window.onload = function() {
     var bars=document.querySelectorAll('[data-bar]');
     var header = document.querySelector('#sticky-header');
     var wrapper = document.querySelector('#wrapper');
     
     sticky({el: bars, header: header, wrapper: wrapper});
-  });
+  };
 
   
   </script>
