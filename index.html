@@ -91,8 +91,9 @@
     var el = calculateBarsOptions(options.el);
 
     wrapper.ontouchend = function(event) {
-      
+
       var timer, touchEnd = getWrapperScroll().top;
+      chechWrapperScrollEnd();
 
       function chechWrapperScrollEnd() {
         var wrapperScrollTop = getWrapperScroll().top;
