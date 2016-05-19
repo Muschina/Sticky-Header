@@ -123,19 +123,19 @@
     }
 
     function checkAndChangeHeader(wrapperScrollTop) {
-      if (wrapperScrollTop < el[0].top - headerTop) {
+      if (wrapperScrollTop - Math.abs(body.style.top) < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
         }
       } else {
           el.forEach(function(item) {
-            if(wrapperScrollTop > item.top - headerTop) {
+            if(wrapperScrollTop - Math.abs(body.style.top)> item.top - headerTop) {
               console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
               var headerWidth = getBarWidth();
               header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-              body.style.top = 0;
+              header.style.top = Math.abs(body.style.top);
               body.style.left = 0;
               console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
             } else {
