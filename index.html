@@ -90,30 +90,29 @@
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
 
+    wrapper.ontouchend = function(event) {
+      
+      var timer, touchEnd = getWrapperScroll().top;
+
+      function chechWrapperScrollEnd() {
+        var wrapperScrollTop = getWrapperScroll().top;
+
+        if(timer) {
+          clearTimeout(timer);
+        } 
+        timer = setTimeout(function (){
+          if(touchEnd === wrapperScrollTop) {
+          } else {
+            touchEnd = wrapperScrollTop;
+            chechWrapperScrollEnd();
+          }              
+        },1000/60);
+      }
+      
+    }
 
     wrapper.onscroll = function(event) {
       var wrapperScrollTop = getWrapperScroll().top;
-      if(wrapperScrollTop < 0) {
-        wrapper.ontouchend = function(event) {
-          var timer, touchEnd = wrapperScrollTop;
-          function chechWrapperScrollEnd() {
-            var wrapperScrollTop = getWrapperScroll().top;
-
-            if(timer) {
-              clearTimeout(timer);
-            } 
-            timer = setTimeout(function (){
-              if(touchEnd === wrapperScrollTop) {
-              } else {
-                touchEnd = wrapperScrollTop;
-                chechWrapperScrollEnd();
-              }              
-            },1000/60);
-          }
-          
-        }
-      }
-
       if (wrapperScrollTop < el[0].top - headerTop) {
       	if(header.classList.contains(el[0].consistsClass)) {
     			header.classList.remove(el[0].consistsClass);
