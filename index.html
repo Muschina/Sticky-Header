@@ -14,12 +14,11 @@
       box-sizing: border-box;
     }
 
-    html {
+   /* html {
       -ms-touch-action: none;
-    }
+    }*/
 
     body {
-      position: relative;
     	overflow: hidden;
       height: 100vh;
     }
@@ -52,12 +51,6 @@
       left: 0;
       z-index: 1;	
     }
-    /*@media handheld {
-      #sticky-header {
-        right: 0;
-        padding: 0;
-      }
-    }*/
   </style>
 </head>
 <body>
@@ -90,32 +83,8 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
-    var body = document.getElementsByTagName('body')[0];
-    console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
-
-    // wrapper.ontouchend = function(event) {
-
-    //   var timer, touchEnd = getWrapperScroll().top;
-    //   chechWrapperScrollEnd();
-
-    //   function chechWrapperScrollEnd() {
-    //     var wrapperScrollTop = getWrapperScroll().top;
-    //     console.log(header.getBoundingClientRect().top, header.scrollTop);
-
-    //     if(timer) {
-    //       clearTimeout(timer);
-    //     } 
-    //     timer = setTimeout(function (){
-    //       if(touchEnd === wrapperScrollTop) {
-    //         checkAndChangeHeader(touchEnd);
-    //       } else {
-    //         touchEnd = wrapperScrollTop;
-    //         chechWrapperScrollEnd();
-    //       }              
-    //     },1000/60);
-    //   }
-      
-    // }
+    // var body = document.getElementsByTagName('body')[0];
+    // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
 
     wrapper.onscroll = function(event) {
       var wrapperScrollTop = getWrapperScroll().top;
@@ -123,21 +92,20 @@
     }
 
     function checkAndChangeHeader(wrapperScrollTop) {
-      if (wrapperScrollTop - body.getBoundingClientRect().top < el[0].top - headerTop) {
+      if (wrapperScrollTop - header.getBoundingClientRect().top < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
         }
       } else {
           el.forEach(function(item) {
-            if(wrapperScrollTop - body.getBoundingClientRect().top > item.top - headerTop) {
-              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
+            if(wrapperScrollTop - header.getBoundingClientRect().top > item.top - headerTop) {
+              // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
               var headerWidth = getBarWidth();
               header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-              header.style.top =  - body.getBoundingClientRect().top + 'px';
-              body.style.left = 0;
-              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
+              header.style.top =  - header.getBoundingClientRect().top + 'px';
+              // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
@@ -184,15 +152,12 @@
   }
   </script>
   <script type="text/javascript">
-  window.onload = function() {
+  
     var bars=document.querySelectorAll('[data-bar]');
     var header = document.querySelector('#sticky-header');
     var wrapper = document.querySelector('#wrapper');
     
     sticky({el: bars, header: header, wrapper: wrapper});
-  };
-
-  
   </script>
 </body>
 </html>
