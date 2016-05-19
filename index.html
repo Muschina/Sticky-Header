@@ -1,3 +1,20 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @Muschina
+ Unwatch 1
+  Star 0
+  Fork 0 Muschina/Sticky-Header
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Tree: fd5623ced2 Find file Copy path
+Sticky-Header/index.html
+fd5623c  a day ago
+@Muschina Muschina changed scroll border.
+1 contributor
+RawBlameHistory     Executable File  164 lines (146 sloc)  4.29 KB
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +30,11 @@
       -moz-box-sizing: border-box;
       box-sizing: border-box;
     }
-
-   /* html {
+    html {
       -ms-touch-action: none;
-    }*/
-
+    }
     body {
-    	overflow: hidden;
+      overflow: hidden;
       height: 100vh;
     }
     .wrapper {
@@ -32,25 +47,31 @@
       height: 2500px;
     }
     .bar-black {
-    	width: 100%;
-    	height: 50px;
-    	background-color: #333333;
+      width: 100%;
+      height: 50px;
+      background-color: #333333;
     }
     .placeholder {
-    	height: 200px;
-    	width: 100%;
+      height: 200px;
+      width: 100%;
     }
     .bar-grey {
-    	width: 100%;
-    	height: 50px;
-    	background-color: #999999;
+      width: 100%;
+      height: 50px;
+      background-color: #999999;
     }
     #sticky-header {
-    	position: absolute;
-      top: 0;
+      position: absolute;
       left: 0;
-      z-index: 1;	
+      top: 0;
+      z-index: 1; 
     }
+    /*@media handheld {
+      #sticky-header {
+        right: 0;
+        padding: 0;
+      }
+    }*/
   </style>
 </head>
 <body>
@@ -68,100 +89,82 @@
   </div>
   
   <script type="text/javascript">
-  	! function(name, definition) {
+    ! function(name, definition) {
   if (typeof module != 'undefined' && module.exports) module.exports = definition();
   else if (typeof define == 'function') define(definition);
   else this[name] = definition();
 }('sticky', function() {
-
   return sticky;
 });
-
   function sticky(options) {
     
-    var wrapper = options.wrapper;
+    var wrapper= options.wrapper;
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
-    var body = document.getElementsByTagName('body')[0];
-    console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
-
     wrapper.onscroll = function(event) {
-      var wrapperScrollTop = getWrapperScroll().top;
-      checkAndChangeHeader(wrapperScrollTop)
-    }
-
-    function checkAndChangeHeader(wrapperScrollTop) {
-      if (wrapperScrollTop - body.getBoundingClientRect().top < el[0].top - headerTop) {
+      console.log(getWrapperScroll().top)
+      if(getWrapperScroll().top < 0) {
+        wrapper.scrollTop = 0;
+      }
+      if (getWrapperScroll().top < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
-          header.classList.remove(el[0].consistsClass);
-        }
+      header.classList.remove(el[0].consistsClass);
+    }
       } else {
           el.forEach(function(item) {
-            if(wrapperScrollTop - body.getBoundingClientRect().top > item.top - headerTop) {
-              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
+            if(getWrapperScroll().top > item.top - headerTop) {
               var headerWidth = getBarWidth();
-              header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-              header.style.top =  - body.getBoundingClientRect().top + 'px';
-              body.style.left = 0;
-              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
-            } else {
-              if(header.classList.contains(item.consistsClass)) {
-                header.classList.remove(item.consistsClass);
-              }
             }
+        else {
+          if(header.classList.contains(item.consistsClass)) {
+            header.classList.remove(item.consistsClass);
+          }
+        }
           });
       }
     }
-
-  	function calculateBarsOptions (arr) {
-  		var elems = Array.prototype.slice.call(arr)// we do array of collection 
-
-  		var barsArray = elems.map(function(item) {
-  			var rect = item.getBoundingClientRect();
-  			var wrapperScroll = getWrapperScroll();
-
-  			return {
-  				elem: item,
-  				consistsClass: item.className,
-  				left: rect.left + wrapperScroll.left,
-  	      		top: rect.top + wrapperScroll.top,
-  	      		width: rect.width,
-  	      		height: rect.height
-  			};
-  		});
-
-  		return barsArray.sort(sortBarsTopPosition);
-  	}
-
+  function calculateBarsOptions (arr) {
+    var elems = Array.prototype.slice.call(arr)// we do array of collection 
+    var barsArray = elems.map(function(item) {
+      var rect = item.getBoundingClientRect();
+      var wrapperScroll = getWrapperScroll();
+      return {
+        elem: item,
+        consistsClass: item.className,
+        left: rect.left + wrapperScroll.left,
+            top: rect.top + wrapperScroll.top,
+            width: rect.width,
+            height: rect.height
+      };
+    });
+    return barsArray.sort(sortBarsTopPosition);
+  }
     function getWrapperScroll() {
       return {
-        top:  wrapper.scrollTop || window.pageYOffset,
-        left: wrapper.scrollLeft || window.pageXOffset 
+        top: window.pageYOffset || wrapper.scrollTop,
+        left: window.pageXOffset || wrapper.scrollLeft
       };
     }
-
     function sortBarsTopPosition (firstObj, secondObj) {
-  	  return firstObj.top - secondObj.top;
+      return firstObj.top - secondObj.top;
     }
-
     function getBarWidth() {
       return el[0].elem.clientWidth + 'px';
     }
   }
   </script>
   <script type="text/javascript">
-  window.onload = function() {
-    var bars=document.querySelectorAll('[data-bar]');
-    var header = document.querySelector('#sticky-header');
-    var wrapper = document.querySelector('#wrapper');
-    
-    sticky({el: bars, header: header, wrapper: wrapper});
-  };
-
+  var bars=document.querySelectorAll('[data-bar]');
+  var header = document.querySelector('#sticky-header');
+  var wrapper = document.querySelector('#wrapper');
+  
+  sticky({el: bars, header: header, wrapper: wrapper});
   
   </script>
 </body>
 </html>
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
