@@ -1,20 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @Muschina
- Unwatch 1
-  Star 0
-  Fork 0 Muschina/Sticky-Header
- Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Tree: cdd6460cc3 Find file Copy path
-Sticky-Header/index.html
-cdd6460  a day ago
-@Muschina Muschina scroll indention is cross-browser
-1 contributor
-RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +16,8 @@ RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
     }
     .wrapper {
       position: absolute; 
+      right: -30px;
+      padding: 0 30px 0 0;
       width: 100%;
       height: 100%;
       overflow: scroll;
@@ -56,16 +41,13 @@ RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
     }
     #sticky-header {
       position: absolute;
-      left: 0;
+      height: 50px;
+      width: 100%;  
       top: 0;
+      right: 15px;
+      padding: 0 30px 0 0;
       z-index: 1; 
     }
-    /*@media handheld {
-      #sticky-header {
-        right: 0;
-        padding: 0;
-      }
-    }*/
   </style>
 </head>
 <body>
@@ -73,7 +55,7 @@ RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
   <div id="wrapper" class="wrapper">
     <div class="container">
       <a href="https://github.com/ltebean/sticky-header">
-        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"/>
+        <img style="position: absolute; top: 0; right: 30px; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"/>
       </a>
       <div class="placeholder"></div>
       <div class="bar-black" data-bar="firstBar"></div>
@@ -106,10 +88,8 @@ RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
       } else {
           el.forEach(function(item) {
             if(getWrapperScroll().top > item.top - headerTop) {
-              var headerWidth = getBarWidth();
-              header.classList.add(item.consistsClass);
-              header.style.width = headerWidth;
-            }
+          header.classList.add(item.consistsClass);
+        }
         else {
           if(header.classList.contains(item.consistsClass)) {
             header.classList.remove(item.consistsClass);
@@ -142,9 +122,6 @@ RawBlameHistory     Executable File  154 lines (138 sloc)  4.08 KB
     }
     function sortBarsTopPosition (firstObj, secondObj) {
       return firstObj.top - secondObj.top;
-    }
-    function getBarWidth() {
-      return el[0].elem.clientWidth + 'px';
     }
   }
   </script>
