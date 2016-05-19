@@ -128,6 +128,7 @@
             if(wrapperScrollTop > item.top - headerTop) {
               console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top);
               var headerWidth = getBarWidth();
+              header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
               header.style.top = 0;
