@@ -87,6 +87,7 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
+    var body = document.getElementsByTageName('body');
     console.log(wrapper.scrollTop, body.scrollTop);
 
     // wrapper.ontouchend = function(event) {
