@@ -95,14 +95,14 @@
       var wrapperScrollTop = getWrapperScroll().top;
       if(wrapperScrollTop < 0) {
         wrapper.ontouchend = function(event) {
-          var timer, scrollStop, touchEnd = wrapperScrollTop;
+          var timer, touchEnd = wrapperScrollTop;
           
           function chechWrapperScrollEnd() {
+            var wrapperScrollTop = getWrapperScroll().top;
             if(timer) {
-              clearTimer(timer);
+              clearTimeout(timer);
             } 
-            var timer = setTimeout(function (){
-              var wrapperScrollTop = getWrapperScroll().top;
+            timer = setTimeout(function (wrapperScrollTop){
               if(touchEnd === wrapperScrollTop) {
                 alert(touchEnd);
               } else {
