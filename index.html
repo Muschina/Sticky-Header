@@ -83,8 +83,8 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
-    // var body = document.getElementsByTagName('body')[0];
-    // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
+    var body = document.getElementsByTagName('body')[0];
+    console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
 
     wrapper.onscroll = function(event) {
       var wrapperScrollTop = getWrapperScroll().top;
@@ -92,24 +92,21 @@
     }
 
     function checkAndChangeHeader(wrapperScrollTop) {
-      if (wrapperScrollTop - header.getBoundingClientRect().top < el[0].top - headerTop) {
+      if (wrapperScrollTop - body.getBoundingClientRect().top < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
         }
       } else {
           el.forEach(function(item) {
-            if(wrapperScrollTop - header.getBoundingClientRect().top > item.top - headerTop) {
-              // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
+            if(wrapperScrollTop - body.getBoundingClientRect().top > item.top - headerTop) {
+              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
               var headerWidth = getBarWidth();
               header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-              if (header.getBoundingClientRect().top && !body.style.top) {
-                header.style.top =  - header.getBoundingClientRect().top + 'px';
-                body.style.left = 0;
-              }
-              
-              // console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
+              header.style.top =  - body.getBoundingClientRect().top + 'px';
+              body.style.left = 0;
+              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
@@ -156,11 +153,15 @@
   }
   </script>
   <script type="text/javascript">
+  window.onload = function() {
     var bars=document.querySelectorAll('[data-bar]');
     var header = document.querySelector('#sticky-header');
     var wrapper = document.querySelector('#wrapper');
     
     sticky({el: bars, header: header, wrapper: wrapper});
+  };
+
+  
   </script>
 </body>
 </html>
