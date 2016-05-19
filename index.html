@@ -94,10 +94,25 @@
     wrapper.onscroll = function(event) {
       var wrapperScrollTop = getWrapperScroll().top;
       if(wrapperScrollTop < 0) {
-        var timer;
-        timer ? clearTimer(timer) : timer = setTimeout(function (){
-          wrapper.scrollTop = wrapperScrollTop;
-        },0);
+        wrapper.ontouchend = function(event) {
+          var timer, scrollStop, touchEnd = wrapperScrollTop;
+          
+          function chechWrapperScrollEnd() {
+            if(timer) {
+              clearTimer(timer);
+            } 
+            var timer = setTimeout(function (){
+              var wrapperScrollTop = getWrapperScroll().top;
+              if(touchEnd === wrapperScrollTop) {
+                alert(touchEnd);
+              } else {
+                touchEnd = wrapperScrollTop;
+                chechWrapperScrollEnd();
+              }              
+            },1000/60);
+          }
+          
+        }
       }
 
       if (wrapperScrollTop < el[0].top - headerTop) {
@@ -110,8 +125,7 @@
               var headerWidth = getBarWidth();
     					header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-    				}
-    				else {
+    				} else {
     					if(header.classList.contains(item.consistsClass)) {
     						header.classList.remove(item.consistsClass);
     					}
