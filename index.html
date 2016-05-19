@@ -135,7 +135,7 @@
               header.clientY = 0;
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-              header.style.top =  - body.getBoundingClientRect().top;
+              header.style.top =  - body.getBoundingClientRect().top + 'px';
               body.style.left = 0;
               console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
             } else {
