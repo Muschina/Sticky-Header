@@ -103,6 +103,8 @@
         } 
         timer = setTimeout(function (){
           if(touchEnd === wrapperScrollTop) {
+            wrapper.scrollTop = touchEnd;
+            checkAndChangeHeader(touchEnd);
           } else {
             touchEnd = wrapperScrollTop;
             chechWrapperScrollEnd();
@@ -114,23 +116,27 @@
 
     wrapper.onscroll = function(event) {
       var wrapperScrollTop = getWrapperScroll().top;
+      checkAndChangeHeader(wrapperScrollTop)
+    }
+
+    function checkAndChangeHeader(wrapperScrollTop) {
       if (wrapperScrollTop < el[0].top - headerTop) {
-      	if(header.classList.contains(el[0].consistsClass)) {
-    			header.classList.remove(el[0].consistsClass);
-    		}
+        if(header.classList.contains(el[0].consistsClass)) {
+          header.classList.remove(el[0].consistsClass);
+        }
       } else {
-	      	el.forEach(function(item) {
-	      		if(wrapperScrollTop > item.top - headerTop) {
+          el.forEach(function(item) {
+            if(wrapperScrollTop > item.top - headerTop) {
               var headerWidth = getBarWidth();
-    					header.classList.add(item.consistsClass);
+              header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
-    				} else {
-    					if(header.classList.contains(item.consistsClass)) {
-    						header.classList.remove(item.consistsClass);
-    					}
-    				}
-	      	});
-	    }
+            } else {
+              if(header.classList.contains(item.consistsClass)) {
+                header.classList.remove(item.consistsClass);
+              }
+            }
+          });
+      }
     }
 
   	function calculateBarsOptions (arr) {
