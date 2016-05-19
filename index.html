@@ -47,8 +47,6 @@
     }
     #sticky-header {
     	position: absolute;
-      left: 0;
-      top: 0;
       z-index: 1;	
     }
     /*@media handheld {
@@ -89,6 +87,7 @@
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
+    console.log(window.screen.height, window.screen.availHeight);
 
     // wrapper.ontouchend = function(event) {
 
@@ -127,6 +126,7 @@
       } else {
           el.forEach(function(item) {
             if(wrapperScrollTop > item.top - headerTop) {
+              console.log(window.screen.height, window.screen.availHeight);
               var headerWidth = getBarWidth();
               header.classList.add(item.consistsClass);
               header.style.width = headerWidth;
