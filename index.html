@@ -104,7 +104,9 @@
             if(wrapperScrollTop - bodyTop > item.top - headerTop) {
               header.classList.add(item.consistsClass);
               header.style.width = getBarWidth();
-              alert(header.getBoundingClientRect().top)
+              alert(header.getBoundingClientRect().top);
+              alert(header.scrollTop);
+              alert(header.style.top);
               // header.style.top =  0;
             } else {
               if(header.classList.contains(item.consistsClass)) {
