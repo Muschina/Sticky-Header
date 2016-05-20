@@ -82,13 +82,14 @@
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
     var body = document.getElementsByTagName('body')[0];
+    var userBrowser = navigator.userAgent;
     wrapper.addEventListener('scroll', wrapperOnScroll);
     function wrapperOnScroll(event) {
       var wrapperScrollTop = getWrapperScroll().top;
       checkAndChangeHeader(wrapperScrollTop)
     }
     function checkAndChangeHeader(wrapperScrollTop) {
-      var bodyTop = body.getBoundingClientRect().top;
+      var bodyTop = (~userBrowser.indexOf('Safari')) ? body.getBoundingClientRect().top : 0;
       if (wrapperScrollTop - bodyTop < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
