@@ -83,14 +83,13 @@
     var el = calculateBarsOptions(options.el);
     var body = document.getElementsByTagName('body')[0];
     var userBrowser = navigator.userAgent;
-    alert(userBrowser);
     wrapper.addEventListener('scroll', wrapperOnScroll);
     function wrapperOnScroll(event) {
       var wrapperScrollTop = getWrapperScroll().top;
       checkAndChangeHeader(wrapperScrollTop)
     }
     function checkAndChangeHeader(wrapperScrollTop) {
-      var bodyTop = (~userBrowser.search('iPhone')) ? body.getBoundingClientRect().top : 0;
+      var bodyTop = (~userBrowser.search('CriOS')) ? 0 : body.getBoundingClientRect().top;
       if (wrapperScrollTop - bodyTop < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
