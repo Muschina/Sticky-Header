@@ -104,6 +104,7 @@
             if(wrapperScrollTop - bodyTop > item.top - headerTop) {
               header.classList.add(item.consistsClass);
               header.style.width = getBarWidth();
+              alert(header.getBoundingClientRect().top)
               header.style.top =  - bodyTop + 'px';
             } else {
               if(header.classList.contains(item.consistsClass)) {
@@ -141,7 +142,7 @@
     function sortBarsTopPosition (firstObj, secondObj) {
       return firstObj.top - secondObj.top;
     }
-    
+
     function getBarWidth() {
       return el[0].elem.clientWidth + 'px';
     }
