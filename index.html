@@ -76,7 +76,7 @@
       return sticky;
     });
   function sticky(options) {
-    
+     
     var wrapper= options.wrapper || document.querySelector('#wrapper');
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
@@ -89,7 +89,7 @@
       checkAndChangeHeader(wrapperScrollTop)
     }
     function checkAndChangeHeader(wrapperScrollTop) {
-      var bodyTop = (~userBrowser.indexOf('Safari')) ? body.getBoundingClientRect().top : 0;
+      var bodyTop = (~userBrowser.search('iPhone')) ? body.getBoundingClientRect().top : 0;
       if (wrapperScrollTop - bodyTop < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
