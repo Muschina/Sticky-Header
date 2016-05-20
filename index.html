@@ -29,7 +29,6 @@
       -webkit-overflow-scrolling: touch;
     }
     .container {
-
       height: 2500px;
     }
     .bar-black {
@@ -52,12 +51,6 @@
       left: 0;
       z-index: 1; 
     }
-    /*@media handheld {
-      #sticky-header {
-        right: 0;
-        padding: 0;
-      }
-    }*/
   </style>
 </head>
 <body>
@@ -76,22 +69,22 @@
   
   <script type="text/javascript">
     ! function(name, definition) {
-  if (typeof module != 'undefined' && module.exports) module.exports = definition();
-  else if (typeof define == 'function') define(definition);
-  else this[name] = definition();
-}('sticky', function() {
-  return sticky;
-});
+      if (typeof module != 'undefined' && module.exports) module.exports = definition();
+      else if (typeof define == 'function') define(definition);
+      else this[name] = definition();
+    }('sticky', function() {
+      return sticky;
+    });
+
   function sticky(options) {
     
-    var wrapper= options.wrapper;
+    var wrapper= options.wrapper || document.querySelector('#wrapper');
     var header = options.header || document.querySelector('#sticky-header');
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
     var body = document.getElementsByTagName('body')[0];
-    console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'body ' + body.getBoundingClientRect().top);
 
-    window.addEventListener('scroll', wrapperOnScroll, true);
+    wrapper.addEventListener('scroll', wrapperOnScroll);
 
     function wrapperOnScroll(event) {
       var wrapperScrollTop = getWrapperScroll().top;
@@ -99,21 +92,19 @@
     }
 
     function checkAndChangeHeader(wrapperScrollTop) {
-      if (wrapperScrollTop - body.getBoundingClientRect().top < el[0].top - headerTop) {
+      var bodyTop = body.getBoundingClientRect().top;
+
+      if (wrapperScrollTop - bodyTop < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
         }
       } else {
           el.forEach(function(item) {
-            if(wrapperScrollTop - body.getBoundingClientRect().top > item.top - headerTop) {
-              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
-              var headerWidth = getBarWidth();
-              header.clientY = 0;
+            
+            if(wrapperScrollTop - bodyTop > item.top - headerTop) {
               header.classList.add(item.consistsClass);
-              header.style.width = headerWidth;
-              header.style.top =  - body.getBoundingClientRect().top + 'px';
-              body.style.left = 0;
-              console.log('scroll ' + header.scrollTop, 'clientY ' + header.getBoundingClientRect().top, 'top' + header.style.top, 'body ' + body.getBoundingClientRect().top);
+              header.style.width = getBarWidth();
+              header.style.top =  - bodyTop + 'px';
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
@@ -122,6 +113,7 @@
           });
       }
     }
+
     function calculateBarsOptions (arr) {
       var elems = Array.prototype.slice.call(arr)// we do array of collection 
       var barsArray = elems.map(function(item) {
@@ -138,15 +130,18 @@
       });
       return barsArray.sort(sortBarsTopPosition);
     }
+
     function getWrapperScroll() {
       return {
         top:  wrapper.scrollTop || window.pageYOffset,
         left: wrapper.scrollLeft || window.pageXOffset 
       };
     }
+
     function sortBarsTopPosition (firstObj, secondObj) {
       return firstObj.top - secondObj.top;
     }
+    
     function getBarWidth() {
       return el[0].elem.clientWidth + 'px';
     }
