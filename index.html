@@ -105,7 +105,7 @@
             if(wrapperScrollTop - bodyTop > item.top - headerTop) {
               header.classList.add(item.consistsClass);
               header.style.width = getBarWidth();
-              header.style.top =  bodyTop;
+              header.style.top =  - bodyTop + px;
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
