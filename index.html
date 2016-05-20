@@ -92,19 +92,19 @@
     }
 
     function checkAndChangeHeader(wrapperScrollTop) {
-      var headerTop = header.getBoundingClientRect().top;
+      var bodyTop = body.getBoundingClientRect().top;
 
-      if (wrapperScrollTop - headerTop < el[0].top - headerTop) {
+      if (wrapperScrollTop - bodyTop < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
         }
       } else {
           el.forEach(function(item) {
             
-            if(wrapperScrollTop - headerTop > item.top - headerTop) {
+            if(wrapperScrollTop - bodyTop > item.top - headerTop) {
               header.classList.add(item.consistsClass);
               header.style.width = getBarWidth();
-              header.style.top =  - headerTop + 'px';
+              header.style.top =  - bodyTop + 'px';
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
@@ -141,7 +141,7 @@
     function sortBarsTopPosition (firstObj, secondObj) {
       return firstObj.top - secondObj.top;
     }
-
+    
     function getBarWidth() {
       return el[0].elem.clientWidth + 'px';
     }
