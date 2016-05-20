@@ -75,7 +75,6 @@
     }('sticky', function() {
       return sticky;
     });
-
   function sticky(options) {
     
     var wrapper= options.wrapper || document.querySelector('#wrapper');
@@ -83,17 +82,13 @@
     var headerTop = options.top || 0;
     var el = calculateBarsOptions(options.el);
     var body = document.getElementsByTagName('body')[0];
-
     wrapper.addEventListener('scroll', wrapperOnScroll);
-
     function wrapperOnScroll(event) {
       var wrapperScrollTop = getWrapperScroll().top;
       checkAndChangeHeader(wrapperScrollTop)
     }
-
     function checkAndChangeHeader(wrapperScrollTop) {
       var bodyTop = body.getBoundingClientRect().top;
-
       if (wrapperScrollTop - bodyTop < el[0].top - headerTop) {
         if(header.classList.contains(el[0].consistsClass)) {
           header.classList.remove(el[0].consistsClass);
@@ -104,7 +99,7 @@
             if(wrapperScrollTop - bodyTop > item.top - headerTop) {
               header.classList.add(item.consistsClass);
               header.style.width = getBarWidth();
-              header.style.top =  - bodyTop + px;
+              header.style.top =  - bodyTop + 'px';
             } else {
               if(header.classList.contains(item.consistsClass)) {
                 header.classList.remove(item.consistsClass);
@@ -113,7 +108,6 @@
           });
       }
     }
-
     function calculateBarsOptions (arr) {
       var elems = Array.prototype.slice.call(arr)// we do array of collection 
       var barsArray = elems.map(function(item) {
@@ -130,18 +124,16 @@
       });
       return barsArray.sort(sortBarsTopPosition);
     }
-
     function getWrapperScroll() {
       return {
         top:  wrapper.scrollTop || window.pageYOffset,
         left: wrapper.scrollLeft || window.pageXOffset 
       };
     }
-
     function sortBarsTopPosition (firstObj, secondObj) {
       return firstObj.top - secondObj.top;
     }
-
+    
     function getBarWidth() {
       return el[0].elem.clientWidth + 'px';
     }
