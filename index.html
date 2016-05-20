@@ -83,6 +83,7 @@
     var el = calculateBarsOptions(options.el);
     var body = document.getElementsByTagName('body')[0];
     var userBrowser = navigator.userAgent;
+    alert(userBrowser);
     wrapper.addEventListener('scroll', wrapperOnScroll);
     function wrapperOnScroll(event) {
       var wrapperScrollTop = getWrapperScroll().top;
