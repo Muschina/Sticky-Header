@@ -12,3 +12,10 @@ export const addClassHeader = (className) => {
 	}
 }
 
+export const changeTopHeader = (topHeader) => {
+	return {
+		type: 'CHANGE_TOP',
+		topHeader
+	}
+}
+

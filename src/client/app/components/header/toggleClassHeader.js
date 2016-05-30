@@ -1,18 +1,15 @@
 import classNames from 'classNames';
 
-const toggleClassHeader = (state, action) => {
+const toggleClassHeader = (state = 'sticky-header', action) => {
 	switch (action.type) {
 		case 'REMOVE_CLASS':
-			let positionRemoveClass = state.className.indexOf(action.className);
-			let headerClass = ~positionRemoveClass ? state.className.slice(0, positionRemoveClass) 
-																						 : state.className;
-			return {
-				className: headerClass
-			};
+			let positionRemoveClass = state.indexOf(action.className);
+			let headerClass = ~positionRemoveClass ? state.slice(0, positionRemoveClass) 
+																						 : state;
+			return headerClass;
+			
 		case 'ADD_CLASS': 
-			return {
-				className: classNames (state.className, action.className)
-			};
+			return classNames (state, action.className);
 		default:
 			return state;
 	}

@@ -1,6 +1,6 @@
 import React from 'react';
 import store from './../../store/store.js';
-import {removeClassHeader, addClassHeader} from './../../actions/index.js';
+import {removeClassHeader, addClassHeader, changeTopHeader} from './../../actions/index.js';
 
 
 export default class Wrapper extends React.Component {
@@ -10,17 +10,22 @@ export default class Wrapper extends React.Component {
 	}
 
 	scrollPage (event) {
-		var wrapperScrollTop = this.getWrapperScroll().top;
-		var bo = this.calculateBarsOptions();
+		let headerTop = 0;
+		 if (headerTop !== store.getState().topHeader) {
+		 	headerTop = store.getState().topHeader;
+			store.dispatch(changeTopHeader(headerTop));
+		}
+		let wrapperScrollTop = this.getWrapperScroll().top;
+		let bo = this.calculateBarsOptions();
 
-		if (wrapperScrollTop < bo[0].top) {
+		if (wrapperScrollTop - headerTop < bo[0].top) {
         if (this.consistClassHeader(bo[0].consistsClass)) {
           store.dispatch(removeClassHeader(bo[0].consistsClass));
         }
       } else {
           bo.forEach(function(item) {
             
-            if (wrapperScrollTop > item.top) {
+            if (wrapperScrollTop - headerTop > item.top) {
             	if (!this.consistClassHeader(item.consistsClass)) {
               	store.dispatch(addClassHeader(item.consistsClass));
               }
