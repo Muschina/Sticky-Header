@@ -12,7 +12,6 @@ export default class Wrapper extends React.Component {
 
 	scrollPage (event) {
 		 if (this.headerTop !== store.getState().topHeader) {
-		 	this.headerTop = store.getState().topHeader;
 			store.dispatch(changeTopHeader(this.headerTop));
 		}
 		let wrapperScrollTop = this.getWrapperScroll().top;
