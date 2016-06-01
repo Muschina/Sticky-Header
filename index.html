@@ -68,7 +68,13 @@
   </div>
   
   <script type="text/javascript">
-    
+    ! function(name, definition) {
+      if (typeof module != 'undefined' && module.exports) module.exports = definition();
+      else if (typeof define == 'function') define(definition);
+      else this[name] = definition();
+    }('sticky', function() {
+      return sticky;
+    });
   function sticky(options) {
      
     var wrapper= options.wrapper || document.querySelector('#wrapper');
