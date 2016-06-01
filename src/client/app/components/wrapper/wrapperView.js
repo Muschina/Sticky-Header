@@ -7,12 +7,12 @@ export default class Wrapper extends React.Component {
 	constructor() {
 		super();
 		this.bars = [];
+    this.headerTop = 0;
 	}
 
 	scrollPage (event) {
-		let headerTop = 0;
-		 if (headerTop !== store.getState().topHeader) {
-		 	headerTop = store.getState().topHeader;
+		 if (this.headerTop !== store.getState().topHeader) {
+		 	this.headerTop = store.getState().topHeader;
 			store.dispatch(changeTopHeader(headerTop));
 		}
 		let wrapperScrollTop = this.getWrapperScroll().top;
