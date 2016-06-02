@@ -26,7 +26,6 @@ export default class Sticky extends React.Component {
 	changeHeaderTop (newTop) {
 		let userBrowser = navigator.userAgent;
 		let bodyTop = (~userBrowser.search('CriOS')) ? 0 : newTop;
-		alert(bodyTop);
 		this.setState({topHeader: bodyTop});
 	}
 
