@@ -17,14 +17,14 @@ export default class Wrapper extends React.Component {
 		let wrapperScrollTop = this.wrapper.scrollTop || window.pageYOffset;
 		let bo = this.calculateBarsOptions();
 
-		if (wrapperScrollTop - this.headerTop < bo[0].top) {
+		if (wrapperScrollTop < bo[0].top) {
         if (this.consistClassHeader(bo[0].consistsClass)) {
           this.props.removeHeaderClass(bo[0].consistsClass);
         }
       } else {
           bo.forEach(function(item) {
             
-            if (wrapperScrollTop - this.headerTop >= item.top) {
+            if (wrapperScrollTop >= item.top) {
             	if (!this.consistClassHeader(item.consistsClass)) {
               	this.props.addHeaderClass(item.consistsClass);
               }
